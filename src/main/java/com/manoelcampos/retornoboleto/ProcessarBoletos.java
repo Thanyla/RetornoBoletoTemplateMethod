@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +19,10 @@ import java.util.List;
  * @author Manoel Campos da Silva Filho
  */
 public abstract class ProcessarBoletos {
+    
+    DateTimeFormatter FORMATO_DATA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    DateTimeFormatter FORMATO_DATA_HORA = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+    
     public final void processar(String nomeArquivo) {
         System.out.println("Boletos");
         System.out.println("----------------------------------------------------------------------------------");
