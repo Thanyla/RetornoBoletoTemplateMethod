@@ -1,3 +1,4 @@
+
 import com.manoelcampos.retornoboleto.LeituraRetornoBancoBrasil;
 import com.manoelcampos.retornoboleto.ProcessarBoletos;
 
@@ -7,6 +8,7 @@ import com.manoelcampos.retornoboleto.ProcessarBoletos;
  * @author Manoel Campos da Silva Filho
  */
 public class Principal {
+
     public static void main(String[] args) {
         final ProcessarBoletos processador = new ProcessarBoletos(LeituraRetornoBancoBrasil::processarLinha);
 
@@ -14,5 +16,10 @@ public class Principal {
         System.out.println("Lendo arquivo " + nomeArquivo + "\n");
 
         processador.processar(nomeArquivo);
+
+        /*processador.setProcessarLinha(LeituraRetornoBancoBradesco::processarLinha);
+        nomeArquivo = Principal.class.getResource("bradesco-1.csv").getPath();
+        System.out.println("Lendo Arquivo "+nomeArquivo+"\n");
+        processador.processar(nomeArquivo);*/
     }
 }
