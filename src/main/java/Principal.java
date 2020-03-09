@@ -8,7 +8,7 @@ import com.manoelcampos.retornoboleto.ProcessarBoletos;
  */
 public class Principal {
     public static void main(String[] args) {
-        final ProcessarBoletos processador = new LeituraRetornoBancoBrasil();
+        final ProcessarBoletos processador = new ProcessarBoletos(LeituraRetornoBancoBrasil::processarLinha);
 
         String nomeArquivo = Principal.class.getResource("banco-brasil-1.csv").getPath();
         System.out.println("Lendo arquivo " + nomeArquivo + "\n");

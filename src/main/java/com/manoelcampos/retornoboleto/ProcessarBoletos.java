@@ -8,21 +8,23 @@ import java.nio.file.Paths;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
-/**
- * Processa arquivos de retorno de boletos bancários utilizando a implementação
- * de alguma estratégia ({@link LeituraRetorno}). Esta é uma classe que chamamos
- * de Estrategista, por poder utilizar diferentes estratégias de acordo com as
- * necessidades, podendo mudar a estratégia a ser utilizada até em tempo de
- * execução.
- *
- * @author Manoel Campos da Silva Filho
- */
-public abstract class ProcessarBoletos {
-    
+public class ProcessarBoletos {
+
     public static final DateTimeFormatter FORMATO_DATA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     public static final DateTimeFormatter FORMATO_DATA_HORA = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-    
+
+    private Function<String[], Boleto> processarLinha;
+
+    public ProcessarBoletos(Function<String[], Boleto> processarLinha) {
+        this.processarLinha = processarLinha;
+    }
+
+    public void setProcessarLinha(Function<String[], Boleto> processarLinha) {
+        this.processarLinha = processarLinha;
+    }
+
     public final void processar(String nomeArquivo) {
         System.out.println("Boletos");
         System.out.println("----------------------------------------------------------------------------------");
@@ -33,17 +35,15 @@ public abstract class ProcessarBoletos {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] vetor = line.split(";");
-                Boleto boleto = processarLinha(vetor);
+                Boleto boleto = processarLinha.apply(vetor);
                 boletos.add(boleto);
             }
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
-        
+
         for (Boleto boleto : boletos) {
             System.out.println(boleto);
         }
     }
-
-    protected abstract Boleto processarLinha(String[] vetor);
 }
